@@ -1,0 +1,118 @@
+/**
+* Nav
+*/
+
+.places {
+    padding-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}  
+
+td, th {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: left;
+}
+  
+
+.navbar {
+    text-transform: uppercase;
+    max-width: 100%;
+    font-size: 55%;
+    position: relative;
+}
+
+    .navbar .is-dark {
+        background: #444;
+    }
+
+
+/**
+* Footer 
+*/
+
+.footer a {
+    margin-bottom: 10%;
+    display: inline-block;
+    color: #444;
+}
+
+/**
+* Bulma overrides
+*/
+
+.input, .button {
+    border-radius: 0;
+}
+
+/**
+ * Product list item
+ */
+
+.product-list-item .box .subtitle {
+    margin-bottom: 0;
+}
+
+.product-list-item .box .price {
+    color: #888;
+}
+
+/**
+* Search
+*/
+
+.search-bar {
+    position: absolute;
+    max-width: 30%;
+    width: 30%;
+    padding: 10px;
+    right: 0px;
+    margin: 0 auto 30px;}
+
+.wrapper {
+    width: 100%;
+    height:100px;
+    background-color: #444;
+    /* background-image:url('tank.jpeg'); */
+}
+  
+.large--text-right {
+    text-align: right !important;
+}
+
+.grid-item {
+    float: right;
+    padding-left: 30px;
+    vertical-align: top;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 769px){
+.large--one-half, .large--two-quarters, .large--three-sixths, .large--four-eighths, .large--five-tenths, .large--six-twelfths {
+    width: 50%;}
+}
+
+/**
+* Notification toast
+*/
+
+@keyframes show-toast {
+    0%   {bottom: -100%;}
+    20%  {bottom: 50px;}
+    80%  {bottom: 50px;}
+    100% {bottom: -100%;}
+}
+
+.notification.is-toast {
+    position: fixed;
+    bottom: 100%;
+    right: 20px;
+    animation-name: show-toast;
+    animation-duration: 4s;
+}
+

@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome | {% endblock %}
+
+{% block content %}
+<form method="post" action=".">
+    {% csrf_token %}
+
+    <div class="field">
+        <label>Departure</label>
+
+        <div class="control">
+            <input class="input" type="text" name="departure">
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Destination</label>
+
+        <div class="control">
+            <input class="input" type="text" name="destination">
+        </div>
+    </div>
+
+    <div class="field">
+        <label>Departure Date</label>
+
+        <div class="control">
+            <input class="input" type="text" name="departure_date">
+        </div>
+    </div>
+    <div class="field">
+        <label>Return Date (optional)</label>
+
+        <div class="control">
+            <input class="input" type="text" name="arrival_date">
+        </div>
+    </div>
+    <div class="field">
+        <label>Currency</label>
+
+        <div class="control">
+            <select name="currency">
+                {% for currency in currencies %}
+                    {% if curren == currency %}
+                        <option value="{{ currency }}" selected>{{ currency }}</option>
+                    {% else %}
+                        <option value="{{ currency }}">{{ currency }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button class="button is-dark mt-4 is-uppercase" name= "search" >Search</button>
+        </div>
+    </div>
+    <h1>{{ noflights }}</h1>
+    <h1>{{ p }}</h1>
+    <div class="box mb-4">
+        <div class="table">
+            <table class="table is-fullwidth is-striped">
+                <thead>
+                    <tr>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Carrier</th>
+                        <th>Price({{ curren }})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for price, carrier, depart, arrive in flights %}
+                        {% if price.1 == "min" %}
+                            <tr style="background-color:#FF0000">
+                                <td>{{ depart }}</td>
+                                <td>{{ arrive }}</td>
+                                <td>{{ carrier }}</td>
+                                <td>{{ price.0 }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>{{ depart }}</td>
+                                <td>{{ arrive }}</td>
+                                <td>{{ carrier }}</td>
+                                <td>{{ price.0 }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
