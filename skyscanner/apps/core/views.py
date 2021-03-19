@@ -6,7 +6,7 @@ import json
 
 def frontpage(request):
     currencies = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY', 'COP', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'GBP', 'GEL', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'IQD', 'IRR', 'ISK', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW']
-
+    flights = []
     # Checks if the form as been submitted
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -22,7 +22,7 @@ def frontpage(request):
             # Checks if the PlaceId was used 
             if "-sky" in departure and "-sky" in destination:
 
-                # Callse on the API
+                # Calls on the API
                 url = f"https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/{currency}/en-US/{departure}/{destination}/{departure_date}"
 
                 querystring = {"inboundpartialdate":f"{return_date}"}
@@ -178,7 +178,7 @@ def frontpage(request):
                                 # Add information about the flights to the lists
                                 current_price = []
                                 current_price.append(p)
-                                price.append(p)
+                                price.append(json_data['Quotes'][i]['MinPrice'])
                                 current_price.append("")
                                 prices.append(current_price)
                                 currentFlight = json_data['Quotes'][i]['OutboundLeg']
@@ -206,11 +206,15 @@ def frontpage(request):
                 # Find the minimum price
                 minimum_price = min(price)
                 for i in range(len(prices)):
-                    if prices[i][0] == minimum_price:
+                    if price[i] == minimum_price:
                         prices[i][1] = "min"
+                    else:
+                        prices[i][1] = ""
                     
             # Zip the lists together
             flights = zip(prices, carrier, depart, arrive)
+            f = set(flights)
+            # flights = list(set(zip(prices, carrier, depart, arrive)))
 
             context = {'flights': flights, 'currencies': currencies, 'curren': currency, 'noflights': message}
             return render(request, 'core/frontpage.html', context)

@@ -5,7 +5,6 @@
 {% block content %}
 <form method="post" action=".">
     {% csrf_token %}
-
     <div class="field">
         <label>Departure</label>
 
@@ -42,15 +41,24 @@
         <div class="control">
             <select name="currency">
                 {% for currency in currencies %}
-                    {% if curren == currency %}
-                        <option value="{{ currency }}" selected>{{ currency }}</option>
+                    {% if curren %}
+                        {% if curren == currency %}
+                            <option value="{{ currency }}" selected>{{ currency }}</option>
+                        {% else %}
+                            <option value="{{ currency }}">{{ currency }}</option>
+                        {% endif %}
                     {% else %}
-                        <option value="{{ currency }}">{{ currency }}</option>
-                    {% endif %}
+                        {% if currency == "USD" %}
+                            <option value="{{ currency }}" selected>{{ currency }}</option>
+                        {% else %}
+                            <option value="{{ currency }}">{{ currency }}</option>
+                        {% endif %}  
+                    {% endif %}                  
                 {% endfor %}
             </select>
         </div>
     </div>
+ 
     <div class="field">
         <div class="control">
             <button class="button is-dark mt-4 is-uppercase" name= "search" >Search</button>
@@ -66,27 +74,33 @@
                         <th>Departure</th>
                         <th>Arrival</th>
                         <th>Carrier</th>
-                        <th>Price({{ curren }})</th>
+                        {% if curren %}
+                            <th>Price({{ curren }})</th>
+                        {% else %}
+                            <th>Price</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for price, carrier, depart, arrive in flights %}
-                        {% if price.1 == "min" %}
-                            <tr style="background-color:#FF0000">
-                                <td>{{ depart }}</td>
-                                <td>{{ arrive }}</td>
-                                <td>{{ carrier }}</td>
-                                <td>{{ price.0 }}</td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td>{{ depart }}</td>
-                                <td>{{ arrive }}</td>
-                                <td>{{ carrier }}</td>
-                                <td>{{ price.0 }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
+                    <!-- {% for flight in flights %} -->
+                        {% for price, carrier, depart, arrive in flights %}
+                            {% if price.1 == "min" %}
+                                <tr style="background-color:#FF0000">
+                                    <td>{{ depart }}</td>
+                                    <td>{{ arrive }}</td>
+                                    <td>{{ carrier }}</td>
+                                    <td>{{ price.0 }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>{{ depart }}</td>
+                                    <td>{{ arrive }}</td>
+                                    <td>{{ carrier }}</td>
+                                    <td>{{ price.0 }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    <!-- {% endfor %} -->
                 </tbody>
             </table>
         </div>

@@ -11,6 +11,8 @@ headers = {
 response = requests.request("GET", url, headers=headers)
 json_data = response.json() if response and response.status_code == 200 else None
 data = json_data['Currencies']
+
+# Formats the currencies into tuples to use as choices in Django form
 currencies = []
 choice = "("
 for currency in data:
