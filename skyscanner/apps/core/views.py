@@ -29,7 +29,7 @@ def frontpage(request):
                     querystring = {"inboundpartialdate":f"{return_date}"}
 
                     headers = {
-                        'x-rapidapi-key': "97a2b27303msh623b502d78a9b3cp1f86dcjsne6a41b75adb9",
+                        'x-rapidapi-key': {Insert your key here},
                         'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
                                 }
 
@@ -95,7 +95,7 @@ def frontpage(request):
                     querystring = {"query":f"{departure}"}
 
                     headers = {
-                    'x-rapidapi-key': "97a2b27303msh623b502d78a9b3cp1f86dcjsne6a41b75adb9",
+                    'x-rapidapi-key': {Insert your key here},
                     'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
                     }
 
@@ -117,7 +117,7 @@ def frontpage(request):
                     querystring = {"query":f"{destination}"}
 
                     headers = {
-                    'x-rapidapi-key': "97a2b27303msh623b502d78a9b3cp1f86dcjsne6a41b75adb9",
+                    'x-rapidapi-key': {Insert your key here},
                     'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
                     }
 
@@ -149,7 +149,7 @@ def frontpage(request):
                             querystring = {"inboundpartialdate":f"{return_date}"}
 
                             headers = {
-                                'x-rapidapi-key': "97a2b27303msh623b502d78a9b3cp1f86dcjsne6a41b75adb9",
+                                'x-rapidapi-key': {Insert your key here},
                                 'x-rapidapi-host': "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
                                         }
 
