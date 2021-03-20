@@ -76,6 +76,7 @@
         </div>
     </div>
     <h1>{{ noflights }}</h1>
+    {% if noflights == "" %}
         <div class="box mb-4">
             <div class="table">
                 <table class="table is-fullwidth is-striped">
@@ -112,5 +113,6 @@
                     </tbody>
                 </table>
             </div>
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
