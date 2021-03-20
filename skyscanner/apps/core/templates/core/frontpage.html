@@ -22,8 +22,7 @@
     </div>
 
     <div class="field">
-        <label>Departure Date</label>
-
+        <label>Departure Date (yyyy-mm-dd)</label>
         <div class="control">
             <input class="input" type="text" name="departure_date">
         </div>
@@ -52,28 +51,27 @@
                             <option value="{{ currency }}" selected>{{ currency }}</option>
                         {% else %}
                             <option value="{{ currency }}">{{ currency }}</option>
-                        {% endif %}  
-                    {% endif %}                  
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </select>
         </div>
     </div>
- 
+
     <div class="field">
         <div class="control">
             <button class="button is-dark mt-4 is-uppercase" name= "search" >Search</button>
         </div>
     </div>
     <h1>{{ noflights }}</h1>
-    {% if noflights %}
         <div class="box mb-4">
             <div class="table">
                 <table class="table is-fullwidth is-striped">
                     <thead>
                         <tr>
                             <th>Departure</th>
-                            <th>Arrival</th>
-                            <th>{{ flights }}</th>
+                            <th>Destination</th>
+                            <th>Carrier</th>
                             {% if curren %}
                                 <th>Price({{ curren }})</th>
                             {% else %}
@@ -102,6 +100,5 @@
                     </tbody>
                 </table>
             </div>
-        {% endif %}
     </div>
 {% endblock %}

@@ -18,8 +18,8 @@ def frontpage(request):
             departure_date = form.cleaned_data['departure_date']
             return_date = form.cleaned_data['arrival_date']
             currency = form.cleaned_data['currency']
-            
-            # Checks if the PlaceId was used 
+
+            # Checks if the PlaceId was used
             if "-sky" in departure and "-sky" in destination:
 
                 # Calls on the API
@@ -40,7 +40,7 @@ def frontpage(request):
                 price = []
                 carrier = []
                 depart = []
-                arrive = [] 
+                arrive = []
 
                 # Checks that the request returned data
                 if json_data:
@@ -51,7 +51,7 @@ def frontpage(request):
                         # Format the symbols based on the given information
                         sym = json_data['Currencies'][0]['Symbol']
                         p = str(json_data['Quotes'][i]['MinPrice'])
-                        if json_data['Currencies'][0]['SymbolOnLeft']: 
+                        if json_data['Currencies'][0]['SymbolOnLeft']:
                             if json_data['Currencies'][0]['SpaceBetweenAmountAndSymbol']:
                                 p = sym + ' ' + p
                             else:
@@ -80,11 +80,11 @@ def frontpage(request):
                             elif place['PlaceId'] == destinationId:
                                 arrive.append(place['Name'])
 
-                        # Use the given id to return and append the name of carriers 
+                        # Use the given id to return and append the name of carriers
                         for carr in json_data['Carriers']:
                             if carr['CarrierId'] == carrierId:
                                 carrier.append(carr['Name'])
-                            
+
 
             else:
 
@@ -137,11 +137,11 @@ def frontpage(request):
                 price = []
                 carrier = []
                 depart = []
-                arrive = [] 
+                arrive = []
 
                 # Submit requests to API
                 for departure in depPlaceIds:
-                    for destination in destPlaceIds:       
+                    for destination in destPlaceIds:
 
                         url = f"https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/{currency}/en-US/{departure}/{destination}/{departure_date}"
 
@@ -154,7 +154,7 @@ def frontpage(request):
 
                         response = requests.request("GET", url, headers=headers, params=querystring)
                         json_data = response.json() if response and response.status_code == 200 else None
-                        
+
                         # Check that data is returned
                         if json_data:
 
@@ -164,7 +164,7 @@ def frontpage(request):
                                 # Format the prices from the given information
                                 sym = json_data['Currencies'][0]['Symbol']
                                 p = str(json_data['Quotes'][i]['MinPrice'])
-                                if json_data['Currencies'][0]['SymbolOnLeft']: 
+                                if json_data['Currencies'][0]['SymbolOnLeft']:
                                     if json_data['Currencies'][0]['SpaceBetweenAmountAndSymbol']:
                                         p = sym + ' ' + p
                                     else:
@@ -210,7 +210,7 @@ def frontpage(request):
                         prices[i][1] = "min"
                     else:
                         prices[i][1] = ""
-                    
+
             # Zip the lists together
             flights = zip(prices, carrier, depart, arrive)
 
