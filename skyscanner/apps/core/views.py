@@ -215,10 +215,13 @@ def frontpage(request):
                 # Zip the lists together
                 flights = zip(prices, carrier, depart, arrive)
 
-                context = {'flights': flights, 'currencies': currencies, 'curren': currency, 'noflights': message}
+                context = {'flights': flights, 'currencies': currencies, 'curren': currency, 'message': message}
                 return render(request, 'core/frontpage.html', context)
             except:
                 return render(request, 'core/frontpage.html', {'currencies': currencies})
+        else:
+            message = "Please confirm that all the required fields have been filled out correctly"
+            return render(request, 'core/frontpage.html', {'currencies': currencies, 'message': message})
     else:
         return render(request, 'core/frontpage.html', {'currencies': currencies})
 
