@@ -65,24 +65,23 @@
         </div>
     </div>
     <h1>{{ noflights }}</h1>
-    <h1>{{ p }}</h1>
-    <div class="box mb-4">
-        <div class="table">
-            <table class="table is-fullwidth is-striped">
-                <thead>
-                    <tr>
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <th>Carrier</th>
-                        {% if curren %}
-                            <th>Price({{ curren }})</th>
-                        {% else %}
-                            <th>Price</th>
-                        {% endif %}
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- {% for flight in flights %} -->
+    {% if noflights %}
+        <div class="box mb-4">
+            <div class="table">
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <tr>
+                            <th>Departure</th>
+                            <th>Arrival</th>
+                            <th>{{ flights }}</th>
+                            {% if curren %}
+                                <th>Price({{ curren }})</th>
+                            {% else %}
+                                <th>Price</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for price, carrier, depart, arrive in flights %}
                             {% if price.1 == "min" %}
                                 <tr style="background-color:#FF0000">
@@ -100,9 +99,9 @@
                                 </tr>
                             {% endif %}
                         {% endfor %}
-                    <!-- {% endfor %} -->
-                </tbody>
-            </table>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

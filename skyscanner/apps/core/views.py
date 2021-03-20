@@ -213,8 +213,6 @@ def frontpage(request):
                     
             # Zip the lists together
             flights = zip(prices, carrier, depart, arrive)
-            f = set(flights)
-            # flights = list(set(zip(prices, carrier, depart, arrive)))
 
             context = {'flights': flights, 'currencies': currencies, 'curren': currency, 'noflights': message}
             return render(request, 'core/frontpage.html', context)
