@@ -5,56 +5,68 @@
 {% block content %}
 <form method="post" action=".">
     {% csrf_token %}
-    <div class="field">
-        <label>Departure</label>
+    <div class="columns">
+        <div class="column is-6">
+            <div class="field">
+                <label>Departure</label>
 
-        <div class="control">
-            <input class="input" type="text" name="departure">
+                <div class="control">
+                    <input class="input" type="text" name="departure">
+                </div>
+            </div>
+        </div>
+        <div class="column is-6">
+            <div class="field">
+                <label>Destination</label>
+
+                <div class="control">
+                    <input class="input" type="text" name="destination">
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="field">
-        <label>Destination</label>
-
-        <div class="control">
-            <input class="input" type="text" name="destination">
+    <div class="columns">
+        <div class="column is-6">
+            <div class="field">
+                <label>Departure Date (yyyy-mm-dd)</label>
+                <div class="control">
+                    <input class="input" type="text" name="departure_date">
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="column is-5">
+            <div class="field">
+                <label>Return Date (optional)</label>
 
-    <div class="field">
-        <label>Departure Date (yyyy-mm-dd)</label>
-        <div class="control">
-            <input class="input" type="text" name="departure_date">
+                <div class="control">
+                    <input class="input" type="text" name="arrival_date">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="field">
-        <label>Return Date (optional)</label>
+        <div class="column is-2">
+            <div class="field">
+                <label>Currency</label>
 
-        <div class="control">
-            <input class="input" type="text" name="arrival_date">
-        </div>
-    </div>
-    <div class="field">
-        <label>Currency</label>
-
-        <div class="control">
-            <select name="currency">
-                {% for currency in currencies %}
-                    {% if curren %}
-                        {% if curren == currency %}
-                            <option value="{{ currency }}" selected>{{ currency }}</option>
-                        {% else %}
-                            <option value="{{ currency }}">{{ currency }}</option>
-                        {% endif %}
-                    {% else %}
-                        {% if currency == "USD" %}
-                            <option value="{{ currency }}" selected>{{ currency }}</option>
-                        {% else %}
-                            <option value="{{ currency }}">{{ currency }}</option>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </select>
+                <div class="control">
+                    <select name="currency">
+                        {% for currency in currencies %}
+                            {% if curren %}
+                                {% if curren == currency %}
+                                    <option value="{{ currency }}" selected>{{ currency }}</option>
+                                {% else %}
+                                    <option value="{{ currency }}">{{ currency }}</option>
+                                {% endif %}
+                            {% else %}
+                                {% if currency == "USD" %}
+                                    <option value="{{ currency }}" selected>{{ currency }}</option>
+                                {% else %}
+                                    <option value="{{ currency }}">{{ currency }}</option>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
